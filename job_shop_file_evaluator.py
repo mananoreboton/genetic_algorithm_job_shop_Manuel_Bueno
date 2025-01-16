@@ -1,6 +1,7 @@
 import os
 import argparse
 import job_shop_technique_evaluator
+from job_shop_dataset import JobShopDataset
 
 def read_single_txt_file(file_path: str):
     if not file_path.endswith('.txt'):
@@ -13,7 +14,8 @@ def read_single_txt_file(file_path: str):
             if file_content == 0:
                 print(f"The specified file is empty: {file_path}")
                 return
-            print(file_content)
+            job_shop_dataset = JobShopDataset(text=file_content)
+            job_shop_dataset.show_jobs()
     except FileNotFoundError:
         print(f"The file {file_path} does not exist.")
     except Exception as e:
