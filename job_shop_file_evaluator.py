@@ -1,5 +1,6 @@
 import os
 import argparse
+import job_shop_technique_evaluator
 
 def read_single_txt_file(file_path: str):
     if not file_path.endswith('.txt'):

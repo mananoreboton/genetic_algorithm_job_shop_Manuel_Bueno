@@ -32,7 +32,7 @@ def increase_population():
     pass
 
 # Algoritmo genético
-def genetic_algorithm(jobs, params):
+def genetic_algorithm(jobs, techniques):
     print(jobs)
 
 
