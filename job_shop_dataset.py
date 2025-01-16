@@ -22,7 +22,11 @@ class JobShopDataset:
 
     def show_jobs(self):
         for i, job in enumerate(self.jobs):
-            print(f"Job {i}: {job}")
+            job_description = ""
+            for (m, t) in job:
+                task_description = f"M{m} T{t}, "
+                job_description = job_description + task_description
+            print(f"Job {i}: {job_description}")
 
 
 if __name__ == "__main__":

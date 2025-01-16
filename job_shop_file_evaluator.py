@@ -16,6 +16,8 @@ def read_single_txt_file(file_path: str):
                 return
             job_shop_dataset = JobShopDataset(text=file_content)
             job_shop_dataset.show_jobs()
+            jobs = job_shop_dataset.get_jobs()
+            job_shop_technique_evaluator.evaluate_techniques(jobs=jobs)
     except FileNotFoundError:
         print(f"The file {file_path} does not exist.")
     except Exception as e:
