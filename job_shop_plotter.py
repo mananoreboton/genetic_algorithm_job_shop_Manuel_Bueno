@@ -4,7 +4,7 @@ import random
 
 
 
-def generate_gantt_schedule(best_schedule, jobs):
+def generate_schedule(best_schedule, jobs):
     machine_indices = []
 
     for job in jobs:
@@ -14,7 +14,7 @@ def generate_gantt_schedule(best_schedule, jobs):
     machine_times = [0] * (max_machine_index + 1)
 
     job_end_times = [0] * len(jobs)
-    gantt_schedule = []
+    schedule = []
 
     for job_id, op_id in best_schedule:
         machine, duration = jobs[job_id][op_id]
@@ -24,9 +24,9 @@ def generate_gantt_schedule(best_schedule, jobs):
         machine_times[machine] = end_time
         job_end_times[job_id] = end_time
         s = (job_id, op_id, machine, start_time, end_time)
-        gantt_schedule.append(s)
+        schedule.append(s)
 
-    return gantt_schedule
+    return schedule
 
 def draw_schedule(schedule, jobs):
     num_machines = max(task[2] for task in schedule) + 1
@@ -79,7 +79,7 @@ def main():
     ]
 
     tbest_schedule = [(0, 0), (1, 0), (2, 0), (0, 1), (1, 1), (0, 2), (1, 2), (2, 1)]
-    gantt_schedule = generate_gantt_schedule(tbest_schedule, tjobs)
+    gantt_schedule = generate_schedule(tbest_schedule, tjobs)
     draw_schedule(gantt_schedule, tjobs)
 
 if __name__ == "__main__":
