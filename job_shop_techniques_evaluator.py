@@ -27,9 +27,10 @@ def evaluate_techniques(job_shop_data: JobShopData):
             generations=100,
             crossover_rate=0.8
         )
-        best_schedule = v4.genetic_algorithm(job_shop_data.jobs, num_machines=job_shop_data.num_machines, population_size=20, generations=100, mutation_rate=0.1)
+        best_schedule, fitness_history = v4.genetic_algorithm(job_shop_data.jobs, num_machines=job_shop_data.num_machines, population_size=20, generations=100, mutation_rate=0.1)
         print("Best Schedule:", best_schedule)
         print("Best Solution:", v4.calculate_fitness(best_schedule))
+        print("Fitness History:", fitness_history)
         is_valid_schedule = job_shop_validator.is_valid_schedule(schedule=best_schedule)
         print("Valid schedule:", is_valid_schedule)
         job_shop_plotter.draw_schedule(best_schedule, job_shop_data.jobs)
