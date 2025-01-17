@@ -1,4 +1,4 @@
-class JobShopDataset:
+class JobShopData:
     def __init__(self, text: str):
         """
         Load test case with the format defined in:
@@ -9,22 +9,24 @@ class JobShopDataset:
         listing the machine number and processing time for each step of the job.
         The machines are numbered starting with 0.
         """
-        self.jobs = []
+        jobs = []
         lines = text.strip().split("\n")
         num_jobs, num_machines = map(int, lines[0].split())
         for i in range(num_jobs):
             job_data = list(map(int, lines[i + 1].split()))
             job = [(job_data[j], job_data[j + 1]) for j in range(0, len(job_data), 2)]
-            self.jobs.append(job)
+            jobs.append(job)
 
-    def get_jobs(self):
-        return self.jobs
+        self.jobs = jobs
+        self.num_jobs = num_jobs
+        self.num_machines = num_machines
 
     def show_jobs(self):
+        print(f"Jobs: {self.num_jobs}, Machines: {self.num_machines}")
         for i, job in enumerate(self.jobs):
             job_description = ""
             for (m, t) in job:
-                task_description = f"M{m} T{t}, "
+                task_description = f"(M{m} T{t}) "
                 job_description = job_description + task_description
             print(f"Job {i}: {job_description}")
 
@@ -38,8 +40,8 @@ if __name__ == "__main__":
     2  9  1  3  4  5  5  4  0  3  3  1
     1  3  3  3  5  9  0 10  4  4  2  1
     """
-    jobShopDataset = JobShopDataset(text=text)
-    print(jobShopDataset.get_jobs())
-    jobShopDataset.show_jobs()
+    job_shop_data = JobShopData(text=text)
+    print(job_shop_data.jobs)
+    job_shop_data.show_jobs()
 
 
