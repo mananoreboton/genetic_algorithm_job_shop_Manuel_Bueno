@@ -1,4 +1,5 @@
 import crossover_1
+import job_shop_plotter
 import selection_1
 from fitness_1 import Fitness1
 from job_shop_genetic_algorithm import GeneticAlgorithm
@@ -31,3 +32,5 @@ def evaluate_techniques(job_shop_data: JobShopData):
         print("Best Solution:", best_schedule)
         print("Best Fitness (Makespan):", best_fitness)
         job_shop_validator.is_valid_schedule(best_schedule=best_schedule, jobs=job_shop_data.jobs)
+        schedule = job_shop_plotter.generate_gantt_schedule(best_schedule, job_shop_data.jobs)
+        job_shop_plotter.draw_schedule(schedule, job_shop_data.jobs)
