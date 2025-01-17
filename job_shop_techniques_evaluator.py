@@ -1,7 +1,6 @@
 import crossover_1
 import job_shop_plotter
 import selection_1
-import v4
 from fitness_1 import Fitness1
 from job_shop_genetic_algorithm import GeneticAlgorithm
 from job_shop_data import JobShopData
@@ -21,19 +20,19 @@ techniques_combinations = [
 
 def evaluate_techniques(job_shop_data: JobShopData):
     for techniques in techniques_combinations:
+        print(f"Executing genetic algorithm with techniques: {techniques.description}")
+        fitness = Fitness1(job_shop_data)
         genetic_algorithm = GeneticAlgorithm(
             job_shop_data=job_shop_data,
-            population_size=50,
-            generations=100,
+            population_size=500,
+            generations=200,
             crossover_rate=0.8
         )
+        best_solution, best_fitness, fitness_history = genetic_algorithm.evolve(techniques=techniques, fitness=fitness)
+        print("Best Solution:", best_solution)
+        print("Best Fitness:", best_fitness)
+        print("Fitness History", fitness_history)
+        schedule = job_shop_plotter.generate_schedule(best_solution, job_shop_data.jobs)
+        job_shop_validator.is_valid_schedule(schedule=schedule)
+        job_shop_plotter.draw_schedule(schedule, job_shop_data.jobs)
 
-
-        scheduler = v4.JobShopScheduler(job_shop_data.jobs, num_machines=job_shop_data.num_machines, population_size=20, generations=100, mutation_rate=0.1)
-        best_schedule, fitness_history = scheduler.run()
-        print("Best Schedule:", best_schedule)
-        print("Best Solution:", scheduler.calculate_fitness(best_schedule))
-        print("Fitness History:", fitness_history)
-        is_valid_schedule = job_shop_validator.is_valid_schedule(schedule=best_schedule)
-        print("Valid schedule:", is_valid_schedule)
-        job_shop_plotter.draw_schedule(best_schedule, job_shop_data.jobs)
