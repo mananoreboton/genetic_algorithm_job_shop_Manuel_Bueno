@@ -44,7 +44,7 @@ def draw_schedule(schedule, jobs):
 
         ax.text(
             start + (end - start) / 2, machine,
-            f"J{job_id}O{op_id}",
+            f"J{job_id} T{op_id}",
             ha="center", va="center", color="white", fontsize=8
         )
 

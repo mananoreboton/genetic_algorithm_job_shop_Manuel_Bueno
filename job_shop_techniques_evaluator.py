@@ -31,6 +31,6 @@ def evaluate_techniques(job_shop_data: JobShopData):
         best_solution, best_fitness, fitness_states = genetic_algorithm.evolve(techniques=techniques, fitness=fitness)
         print("Best Solution:", best_solution)
         print("Best Fitness:", best_fitness)
-        job_shop_validator.is_valid_schedule(best_schedule=best_solution, jobs=job_shop_data.jobs)
         schedule = job_shop_plotter.generate_schedule(best_solution, job_shop_data.jobs)
+        job_shop_validator.is_valid_schedule(schedule=schedule)
         job_shop_plotter.draw_schedule(schedule, job_shop_data.jobs)
