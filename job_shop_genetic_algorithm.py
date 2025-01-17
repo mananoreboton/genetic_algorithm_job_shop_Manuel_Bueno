@@ -27,6 +27,7 @@ class GeneticAlgorithm:
     def evolve(self, techniques: Techniques, fitness: Fitness):
         """Main genetic algorithm loop."""
         population = self.initialize_population()
+        fitness_states = []
         for generation in range(self.generations):
             fitness_of_all_individuals = [fitness.fitness(individual) for individual in population]
             next_population = []
@@ -48,10 +49,11 @@ class GeneticAlgorithm:
 
             population = next_population[:self.population_size]
             best_fitness = min(fitness_of_all_individuals)
-            print(f"Generation {generation}: Best fitness = {best_fitness}")
+            fitness_states.append((generation, best_fitness))
+            #print(f"Generation {generation}: Best fitness = {best_fitness}")
 
         # Return the best solution
         fitness_of_all_individuals = [fitness.fitness(individual) for individual in population]
         best_index = np.argmin(fitness_of_all_individuals)
-        return population[best_index], fitness_of_all_individuals[best_index]
+        return population[best_index], fitness_of_all_individuals[best_index], fitness_states
 

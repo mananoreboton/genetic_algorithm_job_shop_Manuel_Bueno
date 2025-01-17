@@ -17,16 +17,13 @@ def generate_gantt_schedule(best_schedule, jobs):
     gantt_schedule = []
 
     for job_id, op_id in best_schedule:
-        print(f"job_id, op_id {job_id} {op_id}")
         machine, duration = jobs[job_id][op_id]
         start_time = max(machine_times[machine], job_end_times[job_id])
         end_time = start_time + duration
 
         machine_times[machine] = end_time
         job_end_times[job_id] = end_time
-        print("job_id, op_id, machine, start_time, end_time")
         s = (job_id, op_id, machine, start_time, end_time)
-        print(f">>> {s}")
         gantt_schedule.append(s)
 
     return gantt_schedule
