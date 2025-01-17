@@ -19,8 +19,7 @@ def read_single_txt_file(file_path: str):
             job_shop_techniques_evaluator.evaluate_techniques(job_shop_data=job_shop_data)
     except FileNotFoundError:
         print(f"The file {file_path} does not exist.")
-    except Exception as e:
-        print(f"Error reading the file {file_path}: {e}")
+
 
 def read_txt_files(directory: str):
     try:
@@ -33,8 +32,7 @@ def read_txt_files(directory: str):
             read_single_txt_file(file)
     except FileNotFoundError:
         print(f"The directory {directory} does not exist.")
-    except Exception as e:
-        print(f"Error reading files from the directory {directory}: {e}")
+
 
 def main():
     parser = argparse.ArgumentParser(description="Reads Job Shop test cases from .txt files in a directory.")

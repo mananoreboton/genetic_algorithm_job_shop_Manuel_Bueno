@@ -1,16 +1,16 @@
 import random
 import numpy as np
 
+from fitness import Fitness
 from job_shop_techniques import Techniques
 
 # Genetic Algorithm Implementation
 class GeneticAlgorithm:
-    def __init__(self, job_shop_data, population_size, generations, crossover_rate, mutation_rate):
+    def __init__(self, job_shop_data, population_size, generations, crossover_rate):
         self.job_shop_data = job_shop_data
         self.population_size = population_size
         self.generations = generations
         self.crossover_rate = crossover_rate
-        self.mutation_rate = mutation_rate
 
     def initialize_population(self):
         """Randomly initializes the population."""
@@ -24,11 +24,11 @@ class GeneticAlgorithm:
             population.append(schedule)
         return population
 
-    def evolve(self, techniques: Techniques):
+    def evolve(self, techniques: Techniques, fitness: Fitness):
         """Main genetic algorithm loop."""
         population = self.initialize_population()
         for generation in range(self.generations):
-            fitness_of_all_individuals = [techniques.fitness(individual) for individual in population]
+            fitness_of_all_individuals = [fitness.fitness(individual) for individual in population]
             next_population = []
 
             for _ in range(self.population_size // 2):
@@ -41,8 +41,8 @@ class GeneticAlgorithm:
                 else:
                     child1, child2 = parent1[:], parent2[:]
 
-                techniques.mutation(child1)
-                techniques.mutation(child2)
+                techniques.mutation.mutation(child1)
+                techniques.mutation.mutation(child2)
 
                 next_population.extend([child1, child2])
 
@@ -51,7 +51,7 @@ class GeneticAlgorithm:
             print(f"Generation {generation}: Best fitness = {best_fitness}")
 
         # Return the best solution
-        fitness_of_all_individuals = [techniques.fitness(individual) for individual in population]
+        fitness_of_all_individuals = [fitness.fitness(individual) for individual in population]
         best_index = np.argmin(fitness_of_all_individuals)
         return population[best_index], fitness_of_all_individuals[best_index]
 
