@@ -33,11 +33,15 @@ def is_valid_schedule(best_schedule, jobs):
     print("Job shop schedule is valid!")
     return True
 
-tjobs = [
-    [(0, 3), (1, 2), (2, 2)],
-    [(0, 2), (2, 1), (1, 4)],
-    [(1, 4), (2, 3)]
-]
+def main():
+    tjobs = [
+        [(0, 3), (1, 2), (2, 2)],
+        [(0, 2), (2, 1), (1, 4)],
+        [(1, 4), (2, 3)]
+    ]
 
-tbest_schedule = [(0, 0), (1, 0), (2, 0), (0, 1), (1, 1), (0, 2), (1, 2), (2, 1)]
-is_valid_schedule(tbest_schedule, tjobs)
+    tbest_schedule = [(0, 0), (1, 0), (2, 0), (0, 1), (1, 1), (0, 2), (1, 2), (2, 1)]
+    is_valid_schedule(tbest_schedule, tjobs)
+
+if __name__ == "__main__":
+    main()
