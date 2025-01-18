@@ -3,10 +3,7 @@ import random
 from mutation import Mutation
 
 
-class Mutation1(Mutation):
-
-    def __init__(self, mutation_rate):
-        self.mutation_rate = mutation_rate
+class SwapMutation(Mutation):
 
     def mutation(self, schedule):
         """Performs swap mutation."""
