@@ -18,16 +18,15 @@ import job_shop_validator
 
 techniques_combinations = [
     Techniques(
-        description="Combination 1 of techniques",
-        selection=TournamentSelection().selection,
+        selection=TournamentSelection(),
         mutation=SwapMutation(),
-        crossover=OnePointCrossover().crossover
+        crossover=OnePointCrossover()
     )
 ]
 
 def evaluate_techniques(job_shop_data: JobShopData):
     for techniques in techniques_combinations:
-        print(f"Executing genetic algorithm with techniques: {techniques.description}")
+        print(f"Executing genetic algorithm with techniques: {techniques.description()}")
         fitness = MakespanCountUnsortedTasksFitness(job_shop_data)
         genetic_algorithm = GeneticAlgorithm(
             job_shop_data=job_shop_data,

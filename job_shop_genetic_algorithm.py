@@ -33,12 +33,12 @@ class GeneticAlgorithm:
             next_population = []
 
             for _ in range(self.population_size // 2):
-                parent1 = techniques.selection(population, fitness_of_all_individuals)
-                parent2 = techniques.selection(population, fitness_of_all_individuals)
+                parent1 = techniques.selection.selection(population, fitness_of_all_individuals)
+                parent2 = techniques.selection.selection(population, fitness_of_all_individuals)
 
                 if random.random() < self.crossover_rate:
-                    child1 = techniques.crossover(parent1, parent2)
-                    child2 = techniques.crossover(parent2, parent1)
+                    child1 = techniques.crossover.crossover(parent1, parent2)
+                    child2 = techniques.crossover.crossover(parent2, parent1)
                 else:
                     child1, child2 = parent1[:], parent2[:]
 
