@@ -12,7 +12,7 @@ class Techniques:
     def description(self):
         return f"""
         Crossover: {self.crossover.__class__.__name__}
-        Mutation:  {self.crossover.__class__.__name__}
+        Mutation:  {self.mutation.__class__.__name__}
         Selection: {self.selection.__class__.__name__}
         """
 

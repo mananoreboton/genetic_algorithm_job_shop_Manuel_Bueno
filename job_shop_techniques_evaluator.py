@@ -1,28 +1,42 @@
+# Crossover
+from crossover import Crossover
 from crossover_one_point import OnePointCrossover
 from crossover_ox import OXCrossover
-
+# Selection
+from selection import Selection
 from selection_tournament import TournamentSelection
-from selection_elitism import SelectionElitism
-
+from selection_probabilistic_tournament import ProbabilisticTournamentSelection
+# Mutation
+from mutation import Mutation
 from mutation_swap import SwapMutation
-
+from mutation_scramble import ScrambleMutation
+# Fitness
 from fitness_1 import MakespanCountUnsortedTasksFitness
-
-
-import job_shop_plotter
+# Genetic Algorithm
 from job_shop_genetic_algorithm import GeneticAlgorithm
+# Tools (validator, plotter)
+import job_shop_plotter
+import job_shop_validator
+# Data types
 from job_shop_data import JobShopData
 from job_shop_techniques import Techniques
 
-import job_shop_validator
+crossover_list = [OnePointCrossover(), OXCrossover()]
+selection_list = [TournamentSelection(), ProbabilisticTournamentSelection()]
+mutation_list = [SwapMutation(), ScrambleMutation()]
 
-techniques_combinations = [
-    Techniques(
-        selection=TournamentSelection(),
-        mutation=SwapMutation(),
-        crossover=OnePointCrossover()
-    )
-]
+
+def build_techniques_combinations(crossovers: [Crossover], selections: [Selection], mutations: [Mutation]):
+    combinations = []
+    for crossover in crossovers:
+        for selection in selections:
+            for mutation in mutations:
+                techniques = Techniques(selection=selection, crossover=crossover, mutation=mutation)
+                combinations.append(techniques)
+    return combinations
+
+
+techniques_combinations = build_techniques_combinations(crossover_list, selection_list, mutation_list)
 
 def evaluate_techniques(job_shop_data: JobShopData):
     for techniques in techniques_combinations:
