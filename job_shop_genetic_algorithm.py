@@ -1,4 +1,5 @@
 import random
+import time
 import numpy as np
 
 from fitness import Fitness
@@ -26,6 +27,7 @@ class GeneticAlgorithm:
 
     def evolve(self, techniques: Techniques, fitness: Fitness):
         """Main genetic algorithm loop."""
+        start_time = time.time()
         population = self.initialize_population()
         fitness_history = []
         for generation in range(self.generations):
@@ -55,5 +57,7 @@ class GeneticAlgorithm:
         # Return the best solution
         fitness_of_all_individuals = [fitness.fitness(individual) for individual in population]
         best_index = np.argmin(fitness_of_all_individuals)
-        return population[best_index], fitness_of_all_individuals[best_index], fitness_history
+        end_time = time.time()
+        execution_time = end_time - start_time
+        return population[best_index], fitness_of_all_individuals[best_index], fitness_history, execution_time
 

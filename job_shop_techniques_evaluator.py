@@ -25,7 +25,6 @@ crossover_list = [OnePointCrossover(), OXCrossover()]
 selection_list = [TournamentSelection(), ProbabilisticTournamentSelection()]
 mutation_list = [SwapMutation(), ScrambleMutation()]
 
-
 def build_techniques_combinations(crossovers: [Crossover], selections: [Selection], mutations: [Mutation]):
     combinations = []
     for crossover in crossovers:
@@ -35,24 +34,40 @@ def build_techniques_combinations(crossovers: [Crossover], selections: [Selectio
                 combinations.append(techniques)
     return combinations
 
-
 techniques_combinations = build_techniques_combinations(crossover_list, selection_list, mutation_list)
+
+population_size_list = [500, 1000]
+generations_list = [200, 400]
+crossover_rate_list = [0.2, 0.8]
+
+def build_parameters_combinations():
+    combinations = []
+    for population_size in population_size_list:
+        for generations in generations_list:
+            for crossover_rate in crossover_rate_list:
+                combinations.append((population_size, generations, crossover_rate))
+    return combinations
+
+parameters_combinations = build_parameters_combinations()
 
 def evaluate_techniques(job_shop_data: JobShopData):
     for techniques in techniques_combinations:
-        print(f"Executing genetic algorithm with techniques: {techniques.description()}")
-        fitness = MakespanCountUnsortedTasksFitness(job_shop_data)
-        genetic_algorithm = GeneticAlgorithm(
-            job_shop_data=job_shop_data,
-            population_size=500,
-            generations=200,
-            crossover_rate=0.8
-        )
-        best_solution, best_fitness, fitness_history = genetic_algorithm.evolve(techniques=techniques, fitness=fitness)
-        print("Best Solution:", best_solution)
-        print("Best Fitness:", best_fitness)
-        print("Fitness History", fitness_history)
-        schedule = job_shop_plotter.generate_schedule(best_solution, job_shop_data.jobs)
-        job_shop_validator.is_valid_schedule(schedule=schedule)
-        job_shop_plotter.draw_schedule(schedule, job_shop_data.jobs)
+        print(f">> Executing genetic algorithm with techniques: {techniques.description()}")
+        for parameters in parameters_combinations:
+            print(f">>> Executing genetic algorithm with population_size: {parameters[0]} generations: {parameters[1]} crossover_rate: {parameters[2]}")
+            fitness = MakespanCountUnsortedTasksFitness(job_shop_data)
+            genetic_algorithm = GeneticAlgorithm(
+                job_shop_data=job_shop_data,
+                population_size=parameters[0],
+                generations=parameters[1],
+                crossover_rate=parameters[2],
+            )
+            best_solution, best_fitness, fitness_history, execution_time = genetic_algorithm.evolve(techniques=techniques, fitness=fitness)
+            print("Best Solution:", best_solution)
+            print("Best Fitness:", best_fitness)
+            print("Fitness History", fitness_history)
+            print("Execution Time:", execution_time)
+            schedule = job_shop_plotter.generate_schedule(solution=best_solution, jobs=job_shop_data.jobs)
+            job_shop_validator.is_valid_schedule(schedule)
+            job_shop_plotter.draw_schedule(schedule)
 

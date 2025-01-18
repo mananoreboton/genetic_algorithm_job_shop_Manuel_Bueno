@@ -4,7 +4,7 @@ import random
 
 
 
-def generate_schedule(best_schedule, jobs):
+def generate_schedule(solution, jobs):
     machine_indices = []
 
     for job in jobs:
@@ -16,7 +16,7 @@ def generate_schedule(best_schedule, jobs):
     job_end_times = [0] * len(jobs)
     schedule = []
 
-    for job_id, op_id in best_schedule:
+    for job_id, op_id in solution:
         machine, duration = jobs[job_id][op_id]
         start_time = max(machine_times[machine], job_end_times[job_id])
         end_time = start_time + duration
@@ -28,9 +28,9 @@ def generate_schedule(best_schedule, jobs):
 
     return schedule
 
-def draw_schedule(schedule, jobs):
+def draw_schedule(schedule):
     num_machines = max(task[2] for task in schedule) + 1
-    num_jobs = len(jobs)
+    num_jobs = max(task[0] for task in schedule) + 1
 
     colors = [f"#{random.randint(0, 0xFFFFFF):06x}" for _ in range(num_jobs)]
 
@@ -80,7 +80,7 @@ def main():
 
     tbest_schedule = [(0, 0), (1, 0), (2, 0), (0, 1), (1, 1), (0, 2), (1, 2), (2, 1)]
     gantt_schedule = generate_schedule(tbest_schedule, tjobs)
-    draw_schedule(gantt_schedule, tjobs)
+    draw_schedule(gantt_schedule)
 
 if __name__ == "__main__":
     main()

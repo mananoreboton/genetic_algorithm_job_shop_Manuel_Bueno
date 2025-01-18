@@ -14,7 +14,7 @@ def read_single_txt_file(file_path: str):
             if file_content == 0:
                 print(f"The specified file is empty: {file_path}")
                 return
-            print(f"Reading Job Shop case from file: {file_path}")
+            print(f"> Reading Job Shop case from file: {file_path}")
             job_shop_data = JobShopData(text=file_content)
             job_shop_data.show_jobs()
             job_shop_techniques_evaluator.evaluate_techniques(job_shop_data=job_shop_data)
