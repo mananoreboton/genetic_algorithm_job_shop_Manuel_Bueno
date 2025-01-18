@@ -8,11 +8,14 @@ class Techniques:
         self.crossover = crossover
         self.mutation = mutation
         self.selection = selection
+        self.crossover_name = self.crossover.__class__.__name__
+        self.mutation_name  = self.mutation.__class__.__name__
+        self.selection_name = self.selection.__class__.__name__
 
     def description(self):
         return f"""
-        Crossover: {self.crossover.__class__.__name__}
-        Mutation:  {self.mutation.__class__.__name__}
-        Selection: {self.selection.__class__.__name__}
+        {self.crossover_name}
+        {self.mutation_name}
+        {self.selection_name}
         """
 

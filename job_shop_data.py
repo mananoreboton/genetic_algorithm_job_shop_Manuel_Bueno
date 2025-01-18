@@ -1,5 +1,5 @@
 class JobShopData:
-    def __init__(self, text: str):
+    def __init__(self, case_name: str, text: str):
         """
         Load test case with the format defined in:
         https://people.brunel.ac.uk/~mastjjb/jeb/orlib/files/jobshop1.txt
@@ -9,6 +9,7 @@ class JobShopData:
         listing the machine number and processing time for each step of the job.
         The machines are numbered starting with 0.
         """
+        self.case_name = case_name
         jobs = []
         lines = text.strip().split("\n")
         num_jobs, num_machines = map(int, lines[0].split())

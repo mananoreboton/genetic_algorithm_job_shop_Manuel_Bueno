@@ -1,8 +1,8 @@
+import os
+
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import random
-
-
 
 def generate_schedule(solution, jobs):
     machine_indices = []
@@ -28,7 +28,7 @@ def generate_schedule(solution, jobs):
 
     return schedule
 
-def draw_schedule(schedule):
+def draw_schedule(schedule, folder: str):
     num_machines = max(task[2] for task in schedule) + 1
     num_jobs = max(task[0] for task in schedule) + 1
 
@@ -59,7 +59,22 @@ def draw_schedule(schedule):
 
     plt.tight_layout()
     plt.title("Gantt of Schedule Job Shop")
-    plt.show()
+    # plt.show()
+    file_path = os.path.join(folder, "schedule.png")
+    plt.savefig(file_path)
+
+def plot_fitness_history(fitness_history: [], folder: str):
+    plt.figure(figsize=(8, 5))
+    plt.plot(fitness_history, marker='o', linestyle='-', color='b', label="Values")
+    plt.title("Fitness history")
+    plt.xlabel("Generation")
+    plt.ylabel("Fitness")
+    plt.legend()
+    plt.grid(True)
+
+    plt.savefig(folder + "/fitness.png")
+    # print(f"Plot saved at: {save_path}")
+    # plt.show()
 
 
 def main():
@@ -80,7 +95,7 @@ def main():
 
     tbest_schedule = [(0, 0), (1, 0), (2, 0), (0, 1), (1, 1), (0, 2), (1, 2), (2, 1)]
     gantt_schedule = generate_schedule(tbest_schedule, tjobs)
-    draw_schedule(gantt_schedule)
+    draw_schedule(gantt_schedule, ".")
 
 if __name__ == "__main__":
     main()

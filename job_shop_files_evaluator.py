@@ -15,7 +15,8 @@ def read_single_txt_file(file_path: str):
                 print(f"The specified file is empty: {file_path}")
                 return
             print(f"> Reading Job Shop case from file: {file_path}")
-            job_shop_data = JobShopData(text=file_content)
+            case_name = os.path.splitext(os.path.basename(file_path))[0]
+            job_shop_data = JobShopData(case_name=case_name, text=file_content)
             job_shop_data.show_jobs()
             job_shop_techniques_evaluator.evaluate_techniques(job_shop_data=job_shop_data)
     except FileNotFoundError:
