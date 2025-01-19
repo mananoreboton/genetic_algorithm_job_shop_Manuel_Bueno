@@ -1,0 +1,14 @@
+case_file, selection, crossover, mutation, is_valid_schedule, population_size, generations, crossover_rate, best_fitness, execution_time, makespan
+la01, TournamentSelection, OnePointCrossover, SwapMutation, False, 500, 200, 0.8, 5328, 4.740204811096191, 666
+la01, TournamentSelection, OnePointCrossover, SwapMutation, False, 500, 200, 0.8, 3032, 4.783669948577881, 758
+la01, TournamentSelection, OnePointCrossover, SwapMutation, False, 500, 200, 0.8, 2664, 4.904006719589233, 666
+la01, TournamentSelection, OnePointCrossover, ScrambleMutation, False, 500, 200, 0.8, 5792, 5.647027254104614, 724
+la01, TournamentSelection, OnePointCrossover, ScrambleMutation, False, 500, 200, 0.8, 4530, 5.611650705337524, 755
+la01, TournamentSelection, OnePointCrossover, ScrambleMutation, False, 500, 200, 0.8, 4392, 5.577910661697388, 732
+la01, TournamentSelection, OnePointCrossover, ScrambleMutation, False, 500, 200, 0.8, 2832, 5.601633787155151, 708
+la01, TournamentSelection, OnePointCrossover, ScrambleMutation, True, 500, 200, 0.8, 1504, 5.596654176712036, 752
+la01, ProbabilisticTournamentSelection, OnePointCrossover, SwapMutation, False, 500, 200, 0.8, 4020, 4.779542922973633, 670
+la01, ProbabilisticTournamentSelection, OnePointCrossover, SwapMutation, False, 500, 200, 0.8, 4008, 4.814310789108276, 668
+la01, ProbabilisticTournamentSelection, OnePointCrossover, SwapMutation, True, 500, 200, 0.8, 1356, 4.824643135070801, 678
+la01, ProbabilisticTournamentSelection, OnePointCrossover, ScrambleMutation, True, 500, 200, 0.8, 1534, 5.617054462432861, 767
+la01, ProbabilisticTournamentSelection, OnePointCrossover, ScrambleMutation, True, 500, 200, 0.8, 1498, 5.650101184844971, 749

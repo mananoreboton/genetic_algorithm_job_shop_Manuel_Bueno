@@ -21,7 +21,7 @@ from selection import Selection
 from selection_probabilistic_tournament import ProbabilisticTournamentSelection
 from selection_tournament import TournamentSelection
 
-crossover_list = [OnePointCrossover(), OXCrossover()]
+crossover_list = [OnePointCrossover()]
 selection_list = [TournamentSelection(), ProbabilisticTournamentSelection()]
 mutation_list = [SwapMutation(), ScrambleMutation()]
 
@@ -38,7 +38,7 @@ techniques_combinations = build_techniques_combinations(crossover_list, selectio
 
 population_size_list = [500]
 generations_list = [200]
-crossover_rate_list = [0.2, 0.8]
+crossover_rate_list = [0.8]
 
 def build_parameters_combinations():
     combinations = []

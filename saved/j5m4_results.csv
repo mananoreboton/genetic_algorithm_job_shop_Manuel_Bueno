@@ -1,0 +1,8 @@
+case_file, selection, crossover, mutation, is_valid_schedule, population_size, generations, crossover_rate, best_fitness, execution_time, makespan
+j5m4, TournamentSelection, OnePointCrossover, SwapMutation, True, 500, 200, 0.8, 66, 2.127744197845459, 33
+j5m4, TournamentSelection, OnePointCrossover, SwapMutation, True, 500, 200, 0.8, 64, 2.4256255626678467, 32
+j5m4, TournamentSelection, OnePointCrossover, ScrambleMutation, True, 500, 200, 0.8, 64, 3.011305809020996, 32
+j5m4, ProbabilisticTournamentSelection, OnePointCrossover, SwapMutation, True, 500, 200, 0.8, 66, 2.6250922679901123, 33
+j5m4, ProbabilisticTournamentSelection, OnePointCrossover, SwapMutation, True, 500, 200, 0.8, 64, 2.56538462638855, 32
+j5m4, ProbabilisticTournamentSelection, OnePointCrossover, ScrambleMutation, True, 500, 200, 0.8, 66, 3.1216917037963867, 33
+j5m4, ProbabilisticTournamentSelection, OnePointCrossover, ScrambleMutation, True, 500, 200, 0.8, 64, 3.1018271446228027, 32
