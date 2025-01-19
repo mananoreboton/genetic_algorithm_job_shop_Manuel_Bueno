@@ -51,7 +51,7 @@ def build_parameters_combinations():
 parameters_combinations = build_parameters_combinations()
 
 def evaluate_techniques(job_shop_data: JobShopData):
-    job_shop_reporter = JobShopReporter()
+    job_shop_reporter = JobShopReporter(case_name=job_shop_data.case_name)
     for techniques in techniques_combinations:
         print(f">> Executing genetic algorithm with techniques: {techniques.description()}")
         for parameters in parameters_combinations:

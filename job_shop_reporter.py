@@ -9,9 +9,9 @@ from job_shop_techniques import Techniques
 
 
 class JobShopReporter:
-    def __init__(self, root_folder: str = "results/"):
+    def __init__(self, case_name: str, root_folder: str = "results/"):
         self.root_folder = root_folder
-        self.case_results_file_name = self.root_folder+"case_results.csv"
+        self.case_results_file_name = self.root_folder+case_name+"_results.csv"
         with open(self.case_results_file_name, "w") as file:
             file.write("case_file, selection, crossover, mutation, is_valid_schedule, population_size, generations, crossover_rate, best_fitness, execution_time, makespan\n")
 
