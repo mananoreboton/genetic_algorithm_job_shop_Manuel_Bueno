@@ -2,6 +2,7 @@
 import sys
 
 from crossover import Crossover
+from crossover_ippx import IPPXCrossover
 from crossover_one_point import OnePointCrossover
 from crossover_ox import OXCrossover
 # Fitness
@@ -21,7 +22,7 @@ from selection import Selection
 from selection_probabilistic_tournament import ProbabilisticTournamentSelection
 from selection_tournament import TournamentSelection
 
-crossover_list = [OnePointCrossover()]
+crossover_list = [OnePointCrossover(), IPPXCrossover()]
 selection_list = [TournamentSelection(), ProbabilisticTournamentSelection()]
 mutation_list = [SwapMutation(), ScrambleMutation()]
 
