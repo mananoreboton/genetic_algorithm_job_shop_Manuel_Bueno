@@ -13,7 +13,7 @@ class JobShopReporter:
         self.root_folder = root_folder
         self.case_results_file_name = self.root_folder+"case_results.csv"
         with open(self.case_results_file_name, "w") as file:
-            file.write("case_file, selection, crossover, mutation, is_valid_schedule, population_size, generations, crossover_rate, best_fitness, execution_time\n")
+            file.write("case_file, selection, crossover, mutation, is_valid_schedule, population_size, generations, crossover_rate, best_fitness, execution_time, makespan\n")
 
     def add_case_result(self, best_solution, best_fitness, fitness_history, execution_time, job_shop_data: JobShopData, techniques: Techniques, parameters: []):
         case_folder_name = self.build_case_folder_name(job_shop_data.case_name, techniques.description(),
@@ -31,8 +31,9 @@ class JobShopReporter:
 
         job_shop_plotter.draw_schedule(schedule=schedule, folder=case_folder_name)
 
+        makespan = max(s[4] for s in schedule)
         with open(self.case_results_file_name, "a") as file:
-            file.write(f"{job_shop_data.case_name}, {techniques.selection_name}, {techniques.crossover_name}, {techniques.mutation_name}, {is_valid_schedule}, {parameters[0]}, {parameters[1]}, {parameters[2]}, {best_fitness}, {execution_time}\n")
+            file.write(f"{job_shop_data.case_name}, {techniques.selection_name}, {techniques.crossover_name}, {techniques.mutation_name}, {is_valid_schedule}, {parameters[0]}, {parameters[1]}, {parameters[2]}, {best_fitness}, {execution_time}, {makespan}\n")
 
         with open(case_folder_name+"fitness_history.txt", "w") as file:
             file.write(str(fitness_history))

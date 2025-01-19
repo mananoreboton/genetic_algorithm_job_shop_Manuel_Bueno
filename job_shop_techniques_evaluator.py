@@ -1,9 +1,11 @@
 # Crossover
+import sys
+
 from crossover import Crossover
 from crossover_one_point import OnePointCrossover
 from crossover_ox import OXCrossover
 # Fitness
-from fitness_1 import MakespanCountUnsortedTasksFitness
+from fitness_makespan_count_unsorted_tasks import MakespanCountUnsortedTasksFitness
 # Data types
 from job_shop_data import JobShopData
 # Genetic Algorithm
@@ -34,8 +36,8 @@ def build_techniques_combinations(crossovers: [Crossover], selections: [Selectio
 
 techniques_combinations = build_techniques_combinations(crossover_list, selection_list, mutation_list)
 
-population_size_list = [200, 500]
-generations_list = [100, 200]
+population_size_list = [500]
+generations_list = [200]
 crossover_rate_list = [0.2, 0.8]
 
 def build_parameters_combinations():
@@ -53,25 +55,30 @@ def evaluate_techniques(job_shop_data: JobShopData):
     for techniques in techniques_combinations:
         print(f">> Executing genetic algorithm with techniques: {techniques.description()}")
         for parameters in parameters_combinations:
-            print(f">>> Executing genetic algorithm with population_size: {parameters[0]} generations: {parameters[1]} crossover_rate: {parameters[2]}")
-            fitness = MakespanCountUnsortedTasksFitness(job_shop_data)
-            genetic_algorithm = GeneticAlgorithm(
-                job_shop_data=job_shop_data,
-                population_size=parameters[0],
-                generations=parameters[1],
-                crossover_rate=parameters[2],
-            )
-            best_solution, best_fitness, fitness_history, execution_time = genetic_algorithm.evolve(techniques=techniques, fitness=fitness)
-            print("Best Solution:", best_solution)
-            print("Best Fitness:", best_fitness)
-            print("Fitness History", fitness_history)
-            print("Execution Time:", execution_time)
-            job_shop_reporter.add_case_result(
-                best_solution=best_solution,
-                best_fitness=best_fitness,
-                fitness_history=fitness_history,
-                execution_time=execution_time,
-                job_shop_data=job_shop_data,
-                techniques=techniques,
-                parameters=parameters
-            )
+            best = sys.maxsize
+            for i in range(10):
+                print(f">>> Executing genetic algorithm with population_size: {parameters[0]} generations: {parameters[1]} crossover_rate: {parameters[2]}")
+                fitness = MakespanCountUnsortedTasksFitness(job_shop_data)
+                genetic_algorithm = GeneticAlgorithm(
+                    job_shop_data=job_shop_data,
+                    population_size=parameters[0],
+                    generations=parameters[1],
+                    crossover_rate=parameters[2],
+                )
+                best_solution, best_fitness, fitness_history, execution_time = genetic_algorithm.evolve(techniques=techniques, fitness=fitness)
+                print("Best Solution:", best_solution)
+                print("Best Fitness:", best_fitness)
+                print("Fitness History", fitness_history)
+                print("Execution Time:", execution_time)
+                if best_fitness < best:
+                    best = best_fitness
+                    job_shop_reporter.add_case_result(
+                        best_solution=best_solution,
+                        best_fitness=best_fitness,
+                        fitness_history=fitness_history,
+                        execution_time=execution_time,
+                        job_shop_data=job_shop_data,
+                        techniques=techniques,
+                        parameters=parameters
+                    )
+
