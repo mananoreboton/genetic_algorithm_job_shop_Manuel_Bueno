@@ -70,15 +70,18 @@ def evaluate_techniques(job_shop_data: JobShopData):
                 print("Best Fitness:", best_fitness)
                 print("Fitness History", fitness_history)
                 print("Execution Time:", execution_time)
+                should_be_added = False
                 if best_fitness < best:
                     best = best_fitness
-                    job_shop_reporter.add_case_result(
-                        best_solution=best_solution,
-                        best_fitness=best_fitness,
-                        fitness_history=fitness_history,
-                        execution_time=execution_time,
-                        job_shop_data=job_shop_data,
-                        techniques=techniques,
-                        parameters=parameters
-                    )
+                    should_be_added = True
+                job_shop_reporter.add_case_result(
+                    best_solution=best_solution,
+                    best_fitness=best_fitness,
+                    fitness_history=fitness_history,
+                    execution_time=execution_time,
+                    job_shop_data=job_shop_data,
+                    techniques=techniques,
+                    parameters=parameters,
+                    should_be_added=should_be_added
+                )
 

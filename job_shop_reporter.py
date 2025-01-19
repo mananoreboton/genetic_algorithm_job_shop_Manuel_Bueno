@@ -1,6 +1,7 @@
 # Tools (validator, plotter)
 import os
 import re
+import sys
 
 import job_shop_plotter
 import job_shop_validator
@@ -15,30 +16,32 @@ class JobShopReporter:
         with open(self.case_results_file_name, "w") as file:
             file.write("case_file, selection, crossover, mutation, is_valid_schedule, population_size, generations, crossover_rate, best_fitness, execution_time, makespan\n")
 
-    def add_case_result(self, best_solution, best_fitness, fitness_history, execution_time, job_shop_data: JobShopData, techniques: Techniques, parameters: []):
+    def add_case_result(self, best_solution, best_fitness, fitness_history, execution_time, job_shop_data: JobShopData, techniques: Techniques, parameters: [], should_be_added: bool):
         case_folder_name = self.build_case_folder_name(job_shop_data.case_name, techniques.description(),
-                                    f"p{parameters[0]}_g{parameters[1]}_cr{parameters[2]}")
-        os.makedirs(case_folder_name, exist_ok=True)
-        print(f"Writing case result to folder: {case_folder_name}")
+                                                       f"p{parameters[0]}_g{parameters[1]}_cr{parameters[2]}")
 
         schedule = job_shop_plotter.generate_schedule(solution=best_solution, jobs=job_shop_data.jobs)
-        with open(case_folder_name+"schedule.txt", "w") as file:
-            file.write(str(schedule))
-
         is_valid_schedule = job_shop_validator.is_valid_schedule(schedule)
-        with open(case_folder_name+f"is_valid_schedule_{is_valid_schedule}.txt", "w") as file:
-            file.write(str(is_valid_schedule))
+        if is_valid_schedule and should_be_added:
+            os.makedirs(case_folder_name, exist_ok=True)
+            print(f"Writing case result to folder: {case_folder_name}")
 
-        job_shop_plotter.draw_schedule(schedule=schedule, folder=case_folder_name)
+            with open(case_folder_name+"schedule.txt", "w") as file:
+                file.write(str(schedule))
 
-        makespan = max(s[4] for s in schedule)
-        with open(self.case_results_file_name, "a") as file:
-            file.write(f"{job_shop_data.case_name}, {techniques.selection_name}, {techniques.crossover_name}, {techniques.mutation_name}, {is_valid_schedule}, {parameters[0]}, {parameters[1]}, {parameters[2]}, {best_fitness}, {execution_time}, {makespan}\n")
+            with open(case_folder_name+f"is_valid_schedule_{is_valid_schedule}.txt", "w") as file:
+                file.write(str(is_valid_schedule))
 
-        with open(case_folder_name+"fitness_history.txt", "w") as file:
-            file.write(str(fitness_history))
+            job_shop_plotter.draw_schedule(schedule=schedule, folder=case_folder_name)
 
-        job_shop_plotter.plot_fitness_history(fitness_history=fitness_history, folder=case_folder_name)
+            makespan = max(s[4] for s in schedule)
+            with open(self.case_results_file_name, "a") as file:
+                file.write(f"{job_shop_data.case_name}, {techniques.selection_name}, {techniques.crossover_name}, {techniques.mutation_name}, {is_valid_schedule}, {parameters[0]}, {parameters[1]}, {parameters[2]}, {best_fitness}, {execution_time}, {makespan}\n")
+
+            with open(case_folder_name+"fitness_history.txt", "w") as file:
+                file.write(str(fitness_history))
+
+            job_shop_plotter.plot_fitness_history(fitness_history=fitness_history, folder=case_folder_name)
 
     def build_case_folder_name(self, job_shop_case_name: str, techniques_names: str, parameters_names: str) -> str:
         s = job_shop_case_name + "_" + techniques_names + "_" + parameters_names
